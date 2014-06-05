@@ -6,7 +6,7 @@ $(document).ready(function(){
 	};
 
 	var fizzBuzzIt = function(number) {
-		var result = " ";
+		var result = "";
 
 		if (number % 3 != 0 && number % 5 != 0) {
 			result += number;
@@ -21,18 +21,33 @@ $(document).ready(function(){
 		return result;
 	};
 	
-	if (isNaN(+topNumber)){
-		addItem("You must enter a number.  Try again.");
-	}
-	else if (+topNumber % 1 != 0){
-		addItem("You must enter a whole number.  Try again.");
-	}
-	else if (+topNumber == 0)
-		addItem("You may not enter zero.  Try again.");
+	var checkValidInput = function(input){
+		var message = "";
 
-	else{
+		if (isNaN(+input)){
+			message = "You must enter a number.  Try again.";
+		}
+		else if (+input % 1 != 0){
+			message = "You must enter a whole number.  Try again.";
+		}
+		else if (+input == 0){
+			message = "You may not enter zero.  Try again.";
+		}
+		else{
+			message = true;
+		}
+
+		return message;
+	};
+	
+
+	var validInput = checkValidInput(topNumber);
+	if (validInput == true){
 		for(var i = 1; i <= topNumber; i++){
 			addItem(fizzBuzzIt(i));
 		}
+	}
+	else{
+		addItem(validInput);
 	}
 });
